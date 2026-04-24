@@ -201,6 +201,11 @@ fun EditItemScreen(
 
     val titleText = if (itemId == null) stringResource(R.string.add_item)
     else stringResource(R.string.edit_item)
+    val isDescriptionValid = description.isNotBlank()
+    val hasImage = imageUri != null
+    val isStorageValid = !isStored || selectedLocationId != null
+    val canSave = isDescriptionValid && hasImage && isStorageValid
+    var showValidationErrors by remember { mutableStateOf(false) }
 
     Scaffold { padding ->
         Column(
@@ -224,6 +229,11 @@ fun EditItemScreen(
                     modifier = Modifier.weight(1f)
                 )
                 TextButton(onClick = {
+                    if (!canSave) {
+                        showValidationErrors = true
+                        return@TextButton
+                    }
+
                     // Persist image into app storage if it is not already a file Uri
                     val finalImageUri = imageUri?.let { uri ->
                         if (uri.scheme == "file") uri
@@ -263,6 +273,14 @@ fun EditItemScreen(
                 onPendingFile = { pendingPhotoFile = it }
             )
 
+            if (showValidationErrors && !hasImage) {
+                Text(
+                    text = stringResource(R.string.error_image_required),
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
+
             if (isAnalyzing) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -281,7 +299,13 @@ fun EditItemScreen(
                 value = description,
                 onValueChange = { description = it },
                 label = { Text(stringResource(R.string.description_hint)) },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                isError = showValidationErrors && !isDescriptionValid,
+                supportingText = {
+                    if (showValidationErrors && !isDescriptionValid) {
+                        Text(stringResource(R.string.error_description_required))
+                    }
+                }
             )
 
             // Section: recommendation attributes
@@ -508,6 +532,14 @@ fun EditItemScreen(
                 locations = ui.locations,
                 selectedLocationId = selectedLocationId
             ) { selectedLocationId = it }
+
+            if (showValidationErrors && !isStorageValid) {
+                Text(
+                    text = stringResource(R.string.error_storage_location_required),
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
         }
     }
 

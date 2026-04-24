@@ -66,6 +66,9 @@
     <string name="tap_select_image">Napauta valitaksesi kuvan</string>
     <string name="take_photo">Ota kuva</string>
     <string name="choose_from_album">Valitse albumista</string>
+    <string name="error_image_required">Lisää vaatekuva.</string>
+    <string name="error_description_required">Kirjoita kuvaus.</string>
+    <string name="error_storage_location_required">Valitse säilytyspaikka tai poista Varastossa-valinta.</string>
     <string name="new_tag_name">Uuden tunnisteen nimi</string>
     <string name="add">Lisää</string>
     <string name="stored">Varastossa</string>

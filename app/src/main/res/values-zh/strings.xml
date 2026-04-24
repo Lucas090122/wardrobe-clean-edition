@@ -72,6 +72,9 @@
     <string name="tap_select_image">点击选择图片</string>
     <string name="take_photo">拍照</string>
     <string name="choose_from_album">从相册选择</string>
+    <string name="error_image_required">请添加衣物照片。</string>
+    <string name="error_description_required">请输入描述。</string>
+    <string name="error_storage_location_required">请选择存放位置，或关闭“已存放”。</string>
     <string name="new_tag_name">新标签名称</string>
     <string name="add">添加</string>
     <string name="stored">已存放</string>
