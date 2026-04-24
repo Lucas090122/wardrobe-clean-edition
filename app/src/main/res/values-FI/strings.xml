@@ -131,6 +131,7 @@
     <string name="poster_stored_in_unprovided">Säilytetään: Ei määritelty</string>
     <string name="poster_tags">Tunnisteet</string>
     <string name="share_via">Jaa sovelluksella</string>
+    <string name="share_failed">Tuotteen jakaminen epäonnistui. Yritä uudelleen.</string>
 
     <string name="add_new_member">Lisää uusi jäsen</string>
     <string name="no_members_yet">Jäseniä ei vielä ole. Lisää jäsen ylhäältä!</string>

@@ -138,6 +138,7 @@
     <string name="poster_stored_in_unprovided">存放于：未提供</string>
     <string name="poster_tags">标签</string>
     <string name="share_via">通过以下方式分享</string>
+    <string name="share_failed">无法分享此物品，请重试。</string>
 
     <!-- Member Selection -->
     <string name="add_new_member">添加新成员</string>

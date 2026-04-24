@@ -63,8 +63,12 @@ fun ItemDetailScreen(
     val captureController = rememberCaptureController()
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
+    val snackbarHostState = remember { SnackbarHostState() }
+    val shareFailedText = stringResource(R.string.share_failed)
 
-    Scaffold { padding ->
+    Scaffold(
+        snackbarHost = { SnackbarHost(snackbarHostState) }
+    ) { padding ->
         if (itemData == null) {
             Box(Modifier.padding(padding).fillMaxSize(), contentAlignment = Alignment.Center) {
                 Text(stringResource(R.string.loading))
@@ -109,7 +113,9 @@ fun ItemDetailScreen(
                             try {
                                 val bitmap = captureController.captureAsync().await().asAndroidBitmap()
                                 shareBitmap(context, bitmap)
-                            } catch (_: Throwable) {}
+                            } catch (_: Throwable) {
+                                snackbarHostState.showSnackbar(shareFailedText)
+                            }
                         }
                     }) {
                         Icon(Icons.Default.Share, stringResource(R.string.action_share))

@@ -142,6 +142,7 @@
     <string name="poster_stored_in_unprovided">Stored in: Unprovided</string>
     <string name="poster_tags">Tags</string>
     <string name="share_via">Share via</string>
+    <string name="share_failed">Could not share this item. Please try again.</string>
 
     <!-- Member Selection Screen -->
     <string name="add_new_member">Add New Member</string>
