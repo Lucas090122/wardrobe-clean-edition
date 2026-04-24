@@ -5,7 +5,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxValue
@@ -265,9 +267,15 @@ fun AddMemberDialog(
                 (!isMinor || birthDateMillis != null)
 
     Dialog(onDismissRequest = onDismiss) {
-        Card {
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(max = 560.dp)
+        ) {
             Column(
-                modifier = Modifier.padding(16.dp),
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState())
+                    .padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 Text(stringResource(R.string.add_new_member), style = MaterialTheme.typography.titleLarge)
@@ -393,9 +401,15 @@ fun EditMemberDialog(
                 (!isMinor || birthDateMillis != null)
 
     Dialog(onDismissRequest = onDismiss) {
-        Card {
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(max = 560.dp)
+        ) {
             Column(
-                modifier = Modifier.padding(16.dp),
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState())
+                    .padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 Text(
