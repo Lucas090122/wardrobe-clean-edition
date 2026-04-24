@@ -45,7 +45,8 @@ class MainActivity : ComponentActivity(), NfcAdapter.ReaderCallback {
         setContent {
             var theme by remember { mutableStateOf(Theme.LIGHT) }
 
-            mainVm = viewModel()
+            val mainViewModel: MainViewModel = viewModel()
+            mainVm = mainViewModel
 
             // ------------- NFC ReaderMode Setup --------------
             LaunchedEffect(Unit) {
@@ -60,7 +61,7 @@ class MainActivity : ComponentActivity(), NfcAdapter.ReaderCallback {
                     vm = memberViewModel,
                     theme = theme,
                     onThemeChange = { theme = it },
-                    mainVm = viewModel()
+                    mainVm = mainViewModel
                 )
             }
         }
