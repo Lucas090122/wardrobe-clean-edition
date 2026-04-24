@@ -54,10 +54,6 @@ import com.example.wardrobe.R
 import androidx.core.graphics.toColorInt
 import androidx.core.graphics.scale
 
-// Globally remember the last automatically-synced tagIds.
-// This allows us to remove previously auto-added tags when new AI suggestions come in.
-private var lastAutoTagIds: MutableSet<Long> = mutableSetOf()
-
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun EditItemScreen(
@@ -76,6 +72,7 @@ fun EditItemScreen(
     var description by remember { mutableStateOf("") }
     var imageUri by remember { mutableStateOf<Uri?>(null) }
     val selectedTagIds = remember { mutableStateListOf<Long>() }
+    val autoTagIdsState = remember(itemId) { mutableStateOf<Set<Long>>(emptySet()) }
     var isStored by remember { mutableStateOf(false) }
     var selectedLocationId by remember { mutableStateOf<Long?>(null) }
 
@@ -185,6 +182,7 @@ fun EditItemScreen(
             syncTagsFromAttributes(
                 vm = vm,
                 selectedTagIds = selectedTagIds,
+                autoTagIdsState = autoTagIdsState,
                 category = category,
                 warmthLevel = warmthLevel,
                 occasions = occasionSet.toSet(),
@@ -310,6 +308,7 @@ fun EditItemScreen(
                             syncTagsFromAttributes(
                                 vm,
                                 selectedTagIds,
+                                autoTagIdsState,
                                 category,
                                 warmthLevel,
                                 occasionSet.toSet(),
@@ -364,6 +363,7 @@ fun EditItemScreen(
                     syncTagsFromAttributes(
                         vm,
                         selectedTagIds,
+                        autoTagIdsState,
                         category,
                         warmthLevel,
                         occasionSet.toSet(),
@@ -397,6 +397,7 @@ fun EditItemScreen(
                             syncTagsFromAttributes(
                                 vm,
                                 selectedTagIds,
+                                autoTagIdsState,
                                 category,
                                 warmthLevel,
                                 occasionSet.toSet(),
@@ -425,6 +426,7 @@ fun EditItemScreen(
                         syncTagsFromAttributes(
                             vm,
                             selectedTagIds,
+                            autoTagIdsState,
                             category,
                             warmthLevel,
                             occasionSet.toSet(),
@@ -529,6 +531,7 @@ fun EditItemScreen(
 private fun syncTagsFromAttributes(
     vm: WardrobeViewModel,
     selectedTagIds: MutableList<Long>,
+    autoTagIdsState: MutableState<Set<Long>>,
     category: String,
     warmthLevel: Int,
     occasions: Set<String>,
@@ -557,7 +560,7 @@ private fun syncTagsFromAttributes(
         }
 
         // Remove auto-tags that were previously added but are no longer desired
-        val toRemove = lastAutoTagIds - newAutoTagIds
+        val toRemove = autoTagIdsState.value - newAutoTagIds
         selectedTagIds.removeAll(toRemove)
 
         // Add newly recommended auto-tags that are not in the selection yet
@@ -565,7 +568,7 @@ private fun syncTagsFromAttributes(
         selectedTagIds.addAll(toAdd)
 
         // Remember the latest set of auto-generated tags for next time
-        lastAutoTagIds = newAutoTagIds
+        autoTagIdsState.value = newAutoTagIds
     }
 }
 
