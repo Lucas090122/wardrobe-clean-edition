@@ -204,44 +204,7 @@ fun EditItemScreen(
     val titleText = if (itemId == null) stringResource(R.string.add_item)
     else stringResource(R.string.edit_item)
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(titleText) },
-                navigationIcon = { TextButton(onClick = onDone) { Text(stringResource(R.string.back)) } },
-                actions = {
-                    TextButton(onClick = {
-                        // Persist image into app storage if it is not already a file Uri
-                        val finalImageUri = imageUri?.let { uri ->
-                            if (uri.scheme == "file") uri
-                            else persistImageToAppStorage(context, uri)
-                        }
-
-                        val finalSizeLabel =
-                            if (showSizeField && sizeText.isNotBlank()) sizeText.trim() else null
-
-                        vm.saveItem(
-                            itemId = itemId,
-                            description = description.trim(),
-                            imageUri = finalImageUri?.toString(),
-                            tagIds = selectedTagIds.toList(),
-                            stored = isStored,
-                            locationId = if (isStored) selectedLocationId else null,
-                            category = category,
-                            warmthLevel = warmthLevel,
-                            occasions = occasionSet.joinToString(","),
-                            isWaterproof = isWaterproof,
-                            color = colorHex.ifBlank { "#FFFFFF" },
-                            sizeLabel = finalSizeLabel,
-                            isFavorite = isFavorite,
-                            season = season
-                        )
-                        onDone()
-                    }) { Text(stringResource(R.string.save)) }
-                }
-            )
-        }
-    ) { padding ->
+    Scaffold { padding ->
         Column(
             modifier = Modifier
                 .padding(padding)
@@ -250,6 +213,50 @@ fun EditItemScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                TextButton(onClick = onDone) {
+                    Text(stringResource(R.string.back))
+                }
+                Text(
+                    text = titleText,
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.weight(1f)
+                )
+                TextButton(onClick = {
+                    // Persist image into app storage if it is not already a file Uri
+                    val finalImageUri = imageUri?.let { uri ->
+                        if (uri.scheme == "file") uri
+                        else persistImageToAppStorage(context, uri)
+                    }
+
+                    val finalSizeLabel =
+                        if (showSizeField && sizeText.isNotBlank()) sizeText.trim() else null
+
+                    vm.saveItem(
+                        itemId = itemId,
+                        description = description.trim(),
+                        imageUri = finalImageUri?.toString(),
+                        tagIds = selectedTagIds.toList(),
+                        stored = isStored,
+                        locationId = if (isStored) selectedLocationId else null,
+                        category = category,
+                        warmthLevel = warmthLevel,
+                        occasions = occasionSet.joinToString(","),
+                        isWaterproof = isWaterproof,
+                        color = colorHex.ifBlank { "#FFFFFF" },
+                        sizeLabel = finalSizeLabel,
+                        isFavorite = isFavorite,
+                        season = season
+                    )
+                    onDone()
+                }) {
+                    Text(stringResource(R.string.save))
+                }
+            }
+
             ImageAndCameraSection(
                 imageUri = imageUri,
                 galleryPicker = galleryPicker,

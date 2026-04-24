@@ -64,39 +64,7 @@ fun ItemDetailScreen(
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(stringResource(R.string.title_item_details)) },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.action_back))
-                    }
-                },
-                actions = {
-                    IconButton(onClick = { showTransferDialog = true }) {
-                        Icon(Icons.Default.SwapHoriz, stringResource(R.string.action_transfer))
-                    }
-                    IconButton(onClick = {
-                        scope.launch {
-                            try {
-                                val bitmap = captureController.captureAsync().await().asAndroidBitmap()
-                                shareBitmap(context, bitmap)
-                            } catch (_: Throwable) {}
-                        }
-                    }) {
-                        Icon(Icons.Default.Share, stringResource(R.string.action_share))
-                    }
-                    IconButton(onClick = onEdit) {
-                        Icon(Icons.Default.Edit, stringResource(R.string.action_edit))
-                    }
-                    IconButton(onClick = { showConfirm = true }) {
-                        Icon(Icons.Default.Delete, stringResource(R.string.action_delete))
-                    }
-                }
-            )
-        }
-    ) { padding ->
+    Scaffold { padding ->
         if (itemData == null) {
             Box(Modifier.padding(padding).fillMaxSize(), contentAlignment = Alignment.Center) {
                 Text(stringResource(R.string.loading))
@@ -118,22 +86,56 @@ fun ItemDetailScreen(
                 modifier = Modifier
                     .padding(padding)
                     .padding(16.dp)
-                    .verticalScroll(rememberScrollState())
-                    .capturable(captureController),
+                    .verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                ItemSharePoster(
-                    description = item.description,
-                    createdText = createdText,
-                    imageUriString = item.imageUri,
-                    tags = tagModels,
-                    isStored = item.stored,
-                    locationName = locationName,
-                    ownerName = owner?.name,
-                    season = item.season,
-                    sizeLabel = item.sizeLabel,
-                    showSize = isMinorOwner
-                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    IconButton(onClick = onBack) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.action_back))
+                    }
+                    Text(
+                        text = stringResource(R.string.title_item_details),
+                        style = MaterialTheme.typography.titleLarge,
+                        modifier = Modifier.weight(1f)
+                    )
+                    IconButton(onClick = { showTransferDialog = true }) {
+                        Icon(Icons.Default.SwapHoriz, stringResource(R.string.action_transfer))
+                    }
+                    IconButton(onClick = {
+                        scope.launch {
+                            try {
+                                val bitmap = captureController.captureAsync().await().asAndroidBitmap()
+                                shareBitmap(context, bitmap)
+                            } catch (_: Throwable) {}
+                        }
+                    }) {
+                        Icon(Icons.Default.Share, stringResource(R.string.action_share))
+                    }
+                    IconButton(onClick = onEdit) {
+                        Icon(Icons.Default.Edit, stringResource(R.string.action_edit))
+                    }
+                    IconButton(onClick = { showConfirm = true }) {
+                        Icon(Icons.Default.Delete, stringResource(R.string.action_delete))
+                    }
+                }
+
+                Column(Modifier.capturable(captureController)) {
+                    ItemSharePoster(
+                        description = item.description,
+                        createdText = createdText,
+                        imageUriString = item.imageUri,
+                        tags = tagModels,
+                        isStored = item.stored,
+                        locationName = locationName,
+                        ownerName = owner?.name,
+                        season = item.season,
+                        sizeLabel = item.sizeLabel,
+                        showSize = isMinorOwner
+                    )
+                }
             }
         }
     }
