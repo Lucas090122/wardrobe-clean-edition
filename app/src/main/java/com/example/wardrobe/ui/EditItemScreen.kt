@@ -813,6 +813,7 @@ private fun StorageSection(
     onLocationSelected: (Long?) -> Unit
 ) {
     var newLocationName by remember { mutableStateOf("") }
+    var pendingDeleteLocation by remember { mutableStateOf<Location?>(null) }
 
     Column {
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -848,7 +849,7 @@ private fun StorageSection(
                                     contentDescription = stringResource(R.string.delete_location),
                                     modifier = Modifier
                                         .size(18.dp)
-                                        .clickable { vm.deleteLocation(location.locationId) }
+                                        .clickable { pendingDeleteLocation = location }
                                 )
                             }
                         )
@@ -878,6 +879,30 @@ private fun StorageSection(
                 }) { Text(stringResource(R.string.add)) }
             }
         }
+    }
+
+    val deleteTarget = pendingDeleteLocation
+    if (deleteTarget != null) {
+        AlertDialog(
+            onDismissRequest = { pendingDeleteLocation = null },
+            title = { Text(stringResource(R.string.dialog_confirm_delete)) },
+            text = {
+                Text(stringResource(R.string.delete_location_confirmation, deleteTarget.name))
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    vm.deleteLocation(deleteTarget.locationId)
+                    pendingDeleteLocation = null
+                }) {
+                    Text(stringResource(R.string.dialog_delete))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { pendingDeleteLocation = null }) {
+                    Text(stringResource(R.string.dialog_cancel))
+                }
+            }
+        )
     }
 }
 

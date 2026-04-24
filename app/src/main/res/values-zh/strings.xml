@@ -80,6 +80,7 @@
     <string name="stored">已存放</string>
     <string name="storage_location">存放位置</string>
     <string name="delete_location">删除位置</string>
+    <string name="delete_location_confirmation">删除“%1$s”？</string>
     <string name="new_location_name">新位置名称</string>
     <string name="dialog_confirm_delete">确认删除</string>
     <string name="dialog_location_delete_msg">确定删除此位置？将有 %1$d 件物品变为未分配。</string>

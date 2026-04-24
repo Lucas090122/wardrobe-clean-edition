@@ -74,6 +74,7 @@
     <string name="stored">Varastossa</string>
     <string name="storage_location">Säilytyspaikka</string>
     <string name="delete_location">Poista paikka</string>
+    <string name="delete_location_confirmation">Poistetaanko “%1$s”?</string>
     <string name="new_location_name">Uuden paikan nimi</string>
     <string name="dialog_confirm_delete">Vahvista poisto</string>
     <string name="dialog_location_delete_msg">Haluatko varmasti poistaa tämän paikan? %1$d tuotetta jää ilman sijaintia.</string>
