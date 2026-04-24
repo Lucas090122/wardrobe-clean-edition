@@ -21,7 +21,6 @@ Main features include:
 - Tags, categories, seasons, and item management  
 - Statistics & analytics  
 - Item transfer between members  
-- Weather-based clothing recommendation  
 
 ---
 
@@ -36,7 +35,6 @@ At the top you will see:
 
 - Page title: **Home**  
 - A large **“Add New Member”** button  
-- Weather summary on the top bar (temperature + icon)  
 - Navigation drawer icon (top left)
 
 <p align="center">
@@ -87,7 +85,6 @@ The currently selected member is used across:
 
 - Home / Inventory  
 - Statistics  
-- Recommendations  
 - Transfers  
 
 ---

@@ -23,7 +23,6 @@ Pääominaisuudet:
 - Tunnisteiden, luokkien, vuodenaikojen ja lämmöntasojen hallinta  
 - Tilastot ja vaateanalytiikka  
 - Vaatteiden siirtäminen jäsenten välillä  
-- Sääperusteinen pukeutumissuositus  
 
 ---
 
@@ -38,7 +37,6 @@ Ylhäällä näkyy:
 
 - Näkymän otsikko: **Koti**  
 - Suuri painike **”Lisää uusi jäsen”**  
-- Ylätason säätietopalkki (lämpötila + kuvake)  
 - Vasemmassa yläkulmassa valikkokuvake (sivupalkki / drawer)  
 
 <p align="center">
@@ -89,7 +87,6 @@ Aktiivinen jäsen vaikuttaa:
 
 - Etusivun / vaatelistan sisältöön  
 - Tilastonäkymän tietoihin  
-- Sääpohjaisiin asusuosituksiin  
 - Siirtotoimintoon  
 
 ---

@@ -16,7 +16,6 @@
     <string name="drawer_expand">展开</string>
     <string name="drawer_collapse">收起</string>
     <string name="drawer_open">打开抽屉</string>
-    <string name="drawer_location_off">定位关闭</string>
     <string name="wardrobe_title">%1$s 的衣橱</string>
 
     <!-- Admin Mode dialog -->
@@ -45,15 +44,6 @@
     <string name="press_back_exit">再次按返回键退出应用</string>
 
     <string name="delete">删除</string>
-
-    <!-- Weather Recommendation -->
-    <string name="weather_title_recommendation">今日推荐穿搭</string>
-    <string name="weather_title_confirmed">今日穿搭（已确认）</string>
-    <string name="weather_unavailable">天气信息不可用，无法推荐穿搭。</string>
-    <string name="weather_cannot_generate">无法生成穿搭建议，请检查衣物是否完整。</string>
-    <string name="weather_button_another_one">换一套</string>
-    <string name="weather_button_confirm_today">确认今日穿搭</string>
-    <string name="weather_no_match">没有衣物符合今日天气条件。</string>
 
     <!-- Clothing Inventory -->
     <string name="inventory_title">服装清单</string>
@@ -208,15 +198,6 @@
     <string name="transfer_history_record">%1$s 将 %2$s 转移给 %3$s（%4$s）。</string>
     <string name="cd_back">返回</string>
 
-    <!-- Weather dynamic -->
-    <string name="weather_no_matching_items">没有衣物符合今日天气。</string>
-    <string name="weather_missing_category">衣橱缺少必要类别（上衣、裤子和鞋子）。</string>
-    <string name="weather_no_combinations">没有可用的穿搭组合。</string>
-    <string name="weather_reason_no_match">没有适合今日天气的衣物。</string>
-    <string name="weather_reason_missing_category">衣橱缺少必要类别，无法形成穿搭。</string>
-    <string name="weather_reason_no_combinations">没有可用的穿搭组合。</string>
-    <string name="weather_reason_basic">体感温度 %1$d°C。</string>
-    <string name="weather_reason_avoiding_recent">体感温度 %1$d°C，避免使用最近穿过的衣物。</string>
     <string name="season_spring_autumn">春秋</string>
     <string name="season_summer">夏季</string>
     <string name="season_winter">冬季</string>

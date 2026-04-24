@@ -13,7 +13,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.wardrobe.Screen
 import com.example.wardrobe.WardrobeApp
-import com.example.wardrobe.data.WeatherInfo
 import com.example.wardrobe.data.WardrobeRepository
 import com.example.wardrobe.ui.Home
 import com.example.wardrobe.ui.SettingsScreen
@@ -33,8 +32,6 @@ import com.example.wardrobe.viewmodel.StatisticsViewModel
  *  ▸ Statistics
  *  ▸ Settings
  *
- * Weather is passed through so that the WardrobeApp and recommendations
- * can use it without recalculating or fetching multiple times.
  */
 @Composable
 fun Navigation(
@@ -43,8 +40,7 @@ fun Navigation(
     navController: NavController,
     viewModel: MainViewModel,           // global MainViewModel (includes NFC state)
     statisticsViewModel: StatisticsViewModel,
-    pd: PaddingValues,
-    weather: WeatherInfo?
+    pd: PaddingValues
 ) {
     NavHost(
         navController = navController as NavHostController,
@@ -58,7 +54,7 @@ fun Navigation(
         // HOME SCREEN (default)
         // -------------------------------------------------------------
         composable(Screen.DrawerScreen.Home.route) {
-            Home( vm,weather)
+            Home(vm)
         }
 
         // -------------------------------------------------------------
@@ -77,7 +73,6 @@ fun Navigation(
 
             WardrobeApp(
                 memberId = memberId,
-                weather = weather,
                 onExit = {
                     vm.setCurrentMember(null)
                     navController.popBackStack()

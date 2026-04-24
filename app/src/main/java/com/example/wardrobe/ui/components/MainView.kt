@@ -55,8 +55,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.foundation.text.KeyboardOptions
-import com.example.wardrobe.data.WeatherRepository
-import com.example.wardrobe.data.WeatherInfo
 import com.example.wardrobe.util.AiModeDrawerItem
 import coil.compose.AsyncImage
 import androidx.compose.foundation.layout.size
@@ -78,7 +76,6 @@ data class NfcLocationItemsUi(
  *  - Theme toggle
  *  - Admin mode toggle with PIN
  *  - AI mode toggle with privacy consent
- *  - Weather fetching and display in the top app bar
  *
  * This composable is used as the root of the app after MainActivity.
  */
@@ -90,8 +87,6 @@ fun MainView(
     vm: MemberViewModel,
     theme: Theme,
     onThemeChange: (Theme) -> Unit,
-    weatherRepo: WeatherRepository,
-    hasLocationPermission: Boolean,
     mainVm: MainViewModel
 ){
     val members by vm.members.collectAsState()
@@ -157,26 +152,6 @@ fun MainView(
             locationName = location?.name ?: "Unknown location",
             items = items
         )
-    }
-
-    // ---- Weather state ----
-    var weather by remember { mutableStateOf<WeatherInfo?>(null) }
-
-    // If needed in future, we can re-enable manual refresh with loading/error states:
-    // var weatherLoading by remember { mutableStateOf(false) }
-    // var weatherError by remember { mutableStateOf<String?>(null) }
-
-    // fun refreshWeather() { ... }
-
-    /**
-     * Fetch weather only when we have permission.
-     * This will also re-trigger if permission changes from false → true.
-     */
-    @SuppressLint("MissingPermission")
-    LaunchedEffect(hasLocationPermission) {
-        if (hasLocationPermission) {
-            weather = weatherRepo.getCurrentWeather()
-        }
     }
 
     // ------------------- Drawer content definition -------------------
@@ -284,25 +259,7 @@ fun MainView(
                             )
                         }
                     },
-                    actions = {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            if (!hasLocationPermission) {
-                                // When location is off, just show a passive text hint.
-                                // We do not pop up dialogs to avoid annoying the user.
-                                Text(
-                                    text = stringResource(R.string.drawer_location_off),
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
-                            } else {
-                                // Manual refresh + error states can be re-enabled later if needed.
-                                // IconButton(onClick = { refreshWeather() }) { ... }
-
-                                val tempText =
-                                    if (weather != null) "${weather!!.temperature.toInt()}°" else "N/A"
-                                Text(text = "${weather?.icon ?: ""} $tempText".trim())
-                            }
-                        }
-                    }
+                    actions = {}
                 )
             },
             content = { innerPadding ->
@@ -312,8 +269,7 @@ fun MainView(
                     navController = controller,
                     viewModel = mainVm,
                     statisticsViewModel = statisticsViewModel,
-                    pd = innerPadding,
-                    weather = weather
+                    pd = innerPadding
                 )
             }
         )

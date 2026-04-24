@@ -41,10 +41,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.wardrobe.R
 import com.example.wardrobe.data.Season
-import com.example.wardrobe.data.WeatherInfo
 import com.example.wardrobe.ui.components.ClothingCard
 import com.example.wardrobe.ui.components.TagChips
-import com.example.wardrobe.ui.components.WeatherRecommendationCard
 import com.example.wardrobe.viewmodel.ViewType
 import com.example.wardrobe.viewmodel.WardrobeViewModel
 
@@ -52,7 +50,6 @@ import com.example.wardrobe.viewmodel.WardrobeViewModel
 @Composable
 fun HomeScreen(
     vm: WardrobeViewModel,
-    weather: WeatherInfo?,          // Weather info injected from MainActivity navigation
     onAddClick: () -> Unit,
     onItemClick: (Long) -> Unit
 ) {
@@ -109,23 +106,6 @@ fun HomeScreen(
             }
 
             Spacer(Modifier.height(8.dp))
-
-            // ------------------------------------------------------------
-            // WEATHER RECOMMENDATION CARD
-            // Only shown in "In Use" mode
-            // ------------------------------------------------------------
-            if (ui.currentView == ViewType.IN_USE) {
-                WeatherRecommendationCard(
-                    weather = weather,
-                    items = ui.items,
-                    onItemClick = onItemClick,
-                    onConfirmOutfit = { outfitItems ->
-                        vm.markOutfitAsWorn(outfitItems)
-                    },
-                    confirmedOutfit = ui.confirmedOutfit
-                )
-                Spacer(Modifier.height(8.dp))
-            }
 
             Spacer(Modifier.height(8.dp))
 

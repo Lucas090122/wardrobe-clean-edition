@@ -17,7 +17,6 @@
 
     <!-- Drawer -->
     <string name="drawer_open">Open Drawer</string>
-    <string name="drawer_location_off">Location off</string>
     <string name="wardrobe_title">%1$s\'s Wardrobe</string>
 
     <!-- Admin Mode dialog -->
@@ -48,17 +47,6 @@
 
     <!-- Tag Chips Screen -->
     <string name="delete">Delete</string>
-
-    <!-- Weather Recommendation -->
-    <string name="weather_title_recommendation">Today\'s Recommendation</string>
-    <string name="weather_title_confirmed">Today\'s Outfit (Confirmed)</string>
-    <string name="weather_unavailable">Weather information is unavailable. Recommendations cannot be provided.</string>
-    <string name="weather_cannot_generate">Could not generate an outfit. Please check your clothing items.</string>
-    <string name="weather_button_another_one">Another one</string>
-    <string name="weather_button_confirm_today">Confirm for Today</string>
-    <!-- Detailed explanations -->
-    <string name="weather_no_match">No clothes match today\'s weather conditions.</string>
-
 
     <!-- Clothing Inventory Screen -->
     <string name="inventory_title">Clothing Inventory</string>
@@ -219,15 +207,6 @@
     <!-- Content descriptions -->
     <string name="cd_back">Back</string>
 
-    <!-- Weather Recommendations -->
-    <string name="weather_no_matching_items">No clothes match today\'s weather.</string>
-    <string name="weather_missing_category">Not enough clothing to form an outfit (need top, pants and shoes).</string>
-    <string name="weather_no_combinations">No valid outfit combinations found.</string>
-    <string name="weather_reason_no_match">No suitable clothes available for today’s weather.</string>
-    <string name="weather_reason_missing_category">Wardrobe missing required clothing categories to form an outfit.</string>
-    <string name="weather_reason_no_combinations">No valid outfit combinations found.</string>
-    <string name="weather_reason_basic">Feels like %1$d°C.</string>
-    <string name="weather_reason_avoiding_recent">Feels like %1$d°C. Avoiding recently worn clothes.</string>
     <string name="season_spring_autumn">Spring/Autumn</string>
     <string name="season_summer">Summer</string>
     <string name="season_winter">Winter</string>

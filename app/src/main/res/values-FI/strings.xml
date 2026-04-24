@@ -17,7 +17,6 @@
     <string name="drawer_collapse">Kutista</string>
 
     <string name="drawer_open">Avaa valikko</string>
-    <string name="drawer_location_off">Sijainti pois käytöstä</string>
     <string name="wardrobe_title">%1$sn vaatekaappi</string>
 
     <string name="admin_set_pin">Aseta ylläpitäjän PIN</string>
@@ -41,14 +40,6 @@
 
     <string name="press_back_exit">Paina takaisin uudelleen poistuaksesi</string>
     <string name="delete">Poista</string>
-
-    <string name="weather_title_recommendation">Päivän asusuositus</string>
-    <string name="weather_title_confirmed">Tämän päivän asu (vahvistettu)</string>
-    <string name="weather_unavailable">Säätietoja ei saatavilla. Suositusta ei voida antaa.</string>
-    <string name="weather_cannot_generate">Asua ei voitu muodostaa. Tarkista vaatteesi.</string>
-    <string name="weather_button_another_one">Uusi vaihtoehto</string>
-    <string name="weather_button_confirm_today">Vahvista tälle päivälle</string>
-    <string name="weather_no_match">Mitkään vaatteet eivät sovi tämän päivän säähän.</string>
 
     <string name="inventory_title">Vaateinventaario</string>
     <string name="back">Takaisin</string>
@@ -196,14 +187,6 @@
     <string name="transfer_history_record">%1$s siirsi tuotteen %2$s käyttäjälle %3$s päivänä %4$s.</string>
     <string name="cd_back">Takaisin</string>
 
-    <string name="weather_no_matching_items">Mitkään vaatteet eivät sovi tämän päivän säähän.</string>
-    <string name="weather_missing_category">Asua ei voida muodostaa — tarvitaan yläosa, housut ja kengät.</string>
-    <string name="weather_no_combinations">Kelvollisia asuyhdistelmiä ei löytynyt.</string>
-    <string name="weather_reason_no_match">Säähän sopivia vaatteita ei ole saatavilla.</string>
-    <string name="weather_reason_missing_category">Vaatekaapista puuttuu tarvittavia vaatekategorioita asun muodostamiseen.</string>
-    <string name="weather_reason_no_combinations">Kelvollisia asukokonaisuuksia ei löytynyt.</string>
-    <string name="weather_reason_basic">Tuntuu kuin %1$d°C.</string>
-    <string name="weather_reason_avoiding_recent">Tuntuu kuin %1$d°C. Vältetään äskettäin käytettyjä vaatteita.</string>
     <string name="season_spring_autumn">Kevät/syksy</string>
     <string name="season_summer">Kesä</string>
     <string name="season_winter">Talvi</string>

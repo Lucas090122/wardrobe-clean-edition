@@ -3,7 +3,7 @@
 ##  Overview
 **Wardrobe** is a mobile application designed to help families manage and organize their clothes efficiently.  
 Users can create multiple members, upload or photograph clothing items, categorize them with tags, and track seasonal storage.  
-The app also supports weather-based outfit recommendations and localization for different languages.
+The app also supports localization for different languages.
 
 ---
 
@@ -12,7 +12,6 @@ The app also supports weather-based outfit recommendations and localization for 
 -  **Multi-member support** – each family member has their own wardrobe.  
 -  **Add & edit clothes** – upload or take photos of clothing items.  
 -  **Global tag system** – reusable tags for quick filtering and organization.  
--  **Weather integration** – suggest outfits based on local weather conditions.  
 -  **Seasonal organization** – mark and store clothes by season.  
 -  **Localization support** – automatic language selection based on system language.  
 -  **Drawer menu** – access app settings, dark mode, and member management.
@@ -37,7 +36,7 @@ For a complete step-by-step tutorial on how to use the Wardrobe app (adding item
 | **Backend / Database** | Room / SQLite (local) |
 | **Architecture** | MVVM (Model–View–ViewModel) |
 | **Tools** | Android Studio, GitHub, Figma, Trello |
-| **APIs** | OpenWeatherMap API (weather integration), Gemini 2.5 flash API |
+| **APIs** | Gemini 2.5 flash API |
 
 ---
 
@@ -89,13 +88,11 @@ Each sprint includes clear tasks and acceptance criteria following the Agile Scr
 - Responsive UI layout & light/dark theme
 - Transfer items between members with history
 - Bluetooth sharing as a generated image
-- Weather integration with location handling
 - Storage location tracking
 - Implement navigation drawer (MD3)
 
 #### **Sprint 3**
 - Research image recognition for auto-tagging
-- Weather-based outfit recommendations
 - Smart growth notifications for children
 - Statistics and charts
 - Photo AI prototype for auto-tag & category suggestions
@@ -145,7 +142,7 @@ Android framework code, UI Composables, Room DAO, and remote API components were
 |------|---------|------------------|
 | Project Owner | *Wang Qingyun* | Sprint planning, coordination |
 | Scrum Master | *Jia Ke* | Member & Tag modules |
-| Developer | *Yang Yang* | Weather & AI integration |
+| Developer | *Yang Yang* | AI integration |
 | Designer | *Hooda Himanshu* | Figma design, UI assets |
 
 ---

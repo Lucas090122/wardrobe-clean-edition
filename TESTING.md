@@ -55,18 +55,6 @@ Covered behavior includes:
 
 ---
 
-### Utilities — Pure Business Logic
-
-- `WeatherRecommender.kt`
-
-Covered:
-
-- Temperature-to-clothing recommendation logic  
-- Boundary values  
-- Seasonal adjustments  
-
----
-
 ## 5. Excluded Scope (Not Unit-Tested)
 
 ### UI (Jetpack Compose)
@@ -100,7 +88,6 @@ Reason: Require integration-level testing.
 
 ### Remote Services / APIs
 - `GeminiAiService.kt`
-- `WeatherRepository.kt`
 
 Reason: Depend on network, Android system services, or API stubs.
 
@@ -113,9 +100,7 @@ Reason: Depend on network, Android system services, or API stubs.
  ├── MainViewModelTest.kt
  ├── MemberViewModelTest.kt
  ├── StatisticsViewModelTest.kt
- ├── WardrobeViewModelTest.kt
- └── util/
-     └── WeatherRecommenderTest.kt
+ └── WardrobeViewModelTest.kt
 ```
 
 ---

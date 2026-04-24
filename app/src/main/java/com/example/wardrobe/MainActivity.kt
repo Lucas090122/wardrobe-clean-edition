@@ -1,33 +1,24 @@
 package com.example.wardrobe
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.*
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.wardrobe.data.AppDatabase
 import com.example.wardrobe.ui.theme.Theme
 import com.example.wardrobe.data.WardrobeRepository
-import com.example.wardrobe.data.WeatherRepository
 import com.example.wardrobe.ui.components.MainView
 import com.example.wardrobe.ui.theme.WardrobeTheme
 import com.example.wardrobe.viewmodel.MemberViewModel
 import com.example.wardrobe.viewmodel.WardrobeViewModel
-import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.BackHandler
 import androidx.compose.ui.platform.LocalContext
-import com.example.wardrobe.data.WeatherInfo
 import com.example.wardrobe.viewmodel.MainViewModel
-import kotlinx.coroutines.delay
-import androidx.core.content.edit
 
 class MainActivity : ComponentActivity(), NfcAdapter.ReaderCallback {
 
@@ -40,7 +31,6 @@ class MainActivity : ComponentActivity(), NfcAdapter.ReaderCallback {
 
         val db = AppDatabase.get(this)
         appRepository = WardrobeRepository(db.clothesDao(), db.settingsRepository)
-        val weatherRepo = WeatherRepository(this)
 
         // Factory for MemberViewModel (because it requires a custom constructor)
         val memberVmFactory = object : ViewModelProvider.Factory {
@@ -52,61 +42,10 @@ class MainActivity : ComponentActivity(), NfcAdapter.ReaderCallback {
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
 
-        // --- Location permission persistence ---
-        val prefs = getSharedPreferences("wardrobe_prefs", MODE_PRIVATE)
-
         setContent {
             var theme by remember { mutableStateOf(Theme.LIGHT) }
 
             mainVm = viewModel()
-
-            // ----- Location Permission State -----
-            var hasLocationPermission by remember { mutableStateOf(false) }
-            var askedOnce by remember { mutableStateOf(prefs.getBoolean("askedOnce", false)) }
-
-            // On app launch: check if the permission is already granted
-            LaunchedEffect(Unit) {
-                hasLocationPermission = ContextCompat.checkSelfPermission(
-                    this@MainActivity,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED
-            }
-
-            // Permission request launcher
-            val permissionLauncher = rememberLauncherForActivityResult(
-                contract = ActivityResultContracts.RequestPermission()
-            ) { granted ->
-                hasLocationPermission = granted
-            }
-
-            // Show permission request ONLY once on first launch
-            // (or after clearing app data)
-            LaunchedEffect(hasLocationPermission, askedOnce) {
-                if (!hasLocationPermission && !askedOnce) {
-                    askedOnce = true
-                    prefs.edit { putBoolean("askedOnce", true) }
-
-                    // Trigger permission dialog
-                    permissionLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION)
-                }
-            }
-
-            // Continuously monitor whether user manually changed the permission in system settings.
-            // This check runs every 5 seconds while the MainView is active.
-            LaunchedEffect(Unit) {
-                while (true) {
-                    val granted = ContextCompat.checkSelfPermission(
-                        this@MainActivity,
-                        Manifest.permission.ACCESS_COARSE_LOCATION
-                    ) == PackageManager.PERMISSION_GRANTED
-
-                    // Update state only if permission actually changed
-                    if (granted != hasLocationPermission) {
-                        hasLocationPermission = granted
-                    }
-                    delay(5000)
-                }
-            }
 
             // ------------- NFC ReaderMode Setup --------------
             LaunchedEffect(Unit) {
@@ -121,8 +60,6 @@ class MainActivity : ComponentActivity(), NfcAdapter.ReaderCallback {
                     vm = memberViewModel,
                     theme = theme,
                     onThemeChange = { theme = it },
-                    weatherRepo = weatherRepo,
-                    hasLocationPermission = hasLocationPermission,
                     mainVm = viewModel()
                 )
             }
@@ -183,7 +120,7 @@ class WardrobeViewModelFactory(private val repo: WardrobeRepository, private val
 }
 
 @Composable
-fun WardrobeApp(memberId: Long, weather: WeatherInfo?, onExit: () -> Unit) {
+fun WardrobeApp(memberId: Long, onExit: () -> Unit) {
     val context = LocalContext.current
     val db = AppDatabase.get(context)
     val repo = WardrobeRepository(db.clothesDao(), db.settingsRepository)
@@ -211,7 +148,6 @@ fun WardrobeApp(memberId: Long, weather: WeatherInfo?, onExit: () -> Unit) {
     when (route) {
         "home" -> com.example.wardrobe.ui.HomeScreen(
             vm = vm,
-            weather = weather,
             onAddClick = { currentClothingId = null; route = "edit" },
             onItemClick = { id -> currentClothingId = id; route = "detail" }
         )
